@@ -1,0 +1,18 @@
+services:
+  database:
+    image: postgres
+    container_name: besete-pizza
+    ports:
+      - 5432:5432
+
+    environment:
+      - POSTGRES_USER=pizza
+      - POSTGRES_PASSWORD=pizza
+      - POSTGRES_DB=database-pizza
+
+    volumes:
+      - besete-volume:/var/lib/postgresql/data
+
+volumes:
+  besete-volume:
+    name: besete-volume
