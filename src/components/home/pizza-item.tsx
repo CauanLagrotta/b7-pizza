@@ -36,7 +36,7 @@ export const PizzaItem = ({ data }: Props) => {
       <div>{decimalToMoney(data.price)}</div>
       <div className="truncate mb-3">{data.ingredients}</div>
       <div className="text-center">
-        <Button onClick={handleAddToCart}>Adicionar ao carrinho</Button>
+        <Button onClick={handleAddToCart} className="cursor-pointer">Adicionar ao carrinho</Button>
       </div>
     </div>
   );
