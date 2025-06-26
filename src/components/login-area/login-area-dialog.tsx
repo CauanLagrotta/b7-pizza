@@ -3,11 +3,13 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
 import { useAuth } from "@/store/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { ArrowLeft } from "lucide-react";
 import { LoginAreaStepEmail } from "./login-area-step-email";
 import { LoginAreaSignup } from "./login-area-step-signup";
+import { getCookie } from "cookies-next/client";
+import { LoginAreaSignin } from "./login-area-step-signin";
 
 type Steps = "EMAIL" | "SIGNUP" | "SIGNIN";
 
@@ -16,6 +18,11 @@ export const LoginAreaDialog = () => {
 
   const [step, setStep] = useState<Steps>("EMAIL");
   const [emailField, setEmailField] = useState("");
+
+  useEffect(() => {
+    const token = getCookie("token");
+    if (token) auth.setToken(token);
+  }, []);
 
   const handleStepEmail = (hasEmail: boolean, email: string) => {
     setEmailField(email);
@@ -53,7 +60,7 @@ export const LoginAreaDialog = () => {
             <LoginAreaStepEmail onValidate={handleStepEmail} />
           )}
 
-          {step === "SIGNIN" && <div>Login</div>}
+          {step === "SIGNIN" && <LoginAreaSignin email={emailField} />}
 
           {step === "SIGNUP" && <LoginAreaSignup email={emailField} />}
         </div>
